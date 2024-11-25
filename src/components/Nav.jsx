@@ -7,13 +7,22 @@ const Nav = () => {
             url: '/'
         },
         {
-            title: ''
+            title: 'About Us',
+            url: '/'
+        },
+        {
+            title: 'Rentals',
+            url: '/'
+        },
+        {
+            title: 'Contact Us',
+            url: ''
         }
     ]
 
     return (
         <>
-            <div className='w-full h-32 bg-slate-300 flex justify-center'>
+            <div className='w-full h-32 flex justify-center'>
                 <div className='max-w-7xl w-full flex justify-center items-center'>
                     <div className='w-full flex justify-center'>
                         <h1>
@@ -21,7 +30,7 @@ const Nav = () => {
                         </h1>
                     </div>
 
-                    <div className='w-full flex justify-center items-center border-x-[1px] h-12'>
+                    <div className='w-full flex justify-center items-center border-x-[2px] h-14'>
                         The Bubble House Rentals
                     </div>
 
@@ -31,11 +40,12 @@ const Nav = () => {
                 </div>
             </div>
 
-            <nav>
-                <ul>
-                    <li>
+            <nav className='w-full flex justify-center h-12 items-center border-t-2'>
+                <ul className='max-w-xl w-full flex justify-between'>
+                    {navLinks.map((navLink) => (
+                        <li>{navLink.title}</li>
+                    ))}
 
-                    </li>
                 </ul>
             </nav>
         </>
