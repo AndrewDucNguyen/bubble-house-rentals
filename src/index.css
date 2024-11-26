@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'Libre Baskerville';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(/src/assets/fonts/LibreBaskerville-Regular.ttf) format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Libre Baskerville';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url(/src/assets/fonts/LibreBaskerville-Italic.ttf) format('truetype');
+  }
+}

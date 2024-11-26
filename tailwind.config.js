@@ -8,6 +8,16 @@ export default {
     extend: {
       backgroundImage: {
         'hero': "url('/src/assets/images/hero_image.jpg')",
+      },
+      fontFamily: {
+        'libre': ['Libre Baskerville', 'sans-serif']
+      },
+      fontWeight: {
+        'light': 300,
+        'regular': 400,
+        'medium': 500,
+        'semi': 600,
+        'bold': 700,
       }
     },
   },
