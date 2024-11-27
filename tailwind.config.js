@@ -10,7 +10,8 @@ export default {
         'hero': "url('/src/assets/images/hero_image.jpg')",
       },
       fontFamily: {
-        'libre': ['Libre Baskerville', 'sans-serif']
+        'libre': ['Libre Baskerville', 'sans-serif'],
+        'montserrat': ['Montserrat Variable', 'Montserrat', 'sans-serif']
       },
       fontWeight: {
         'light': 300,

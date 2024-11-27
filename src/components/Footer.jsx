@@ -12,7 +12,7 @@ const Footer = () => {
                         </h1>
                     </div>
 
-                    <div className='w-full flex justify-center items-center border-x-2 h-14'>
+                    <div className='w-full flex justify-center items-center border-[#040404]/20 border-x h-14'>
                         The Bubble House Rentals
                     </div>
 
@@ -22,7 +22,7 @@ const Footer = () => {
                 </div>
             </div>
 
-            <nav className='w-full flex justify-center h-12 items-center border-t-2'>
+            <nav className='w-full flex justify-center h-12 items-center border-[#040404]/20 border-t'>
 
             </nav>
         </>
