@@ -7,7 +7,6 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'hero': "url('/src/assets/images/forrest_bounce.jpeg')",
       },
       fontFamily: {
         'libre': ['Libre Baskerville', 'sans-serif'],

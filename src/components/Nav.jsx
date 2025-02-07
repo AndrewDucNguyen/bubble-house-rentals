@@ -4,24 +4,24 @@ import { useState } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
 
 const navigation = [
-    { name: 'Product', href: '#' },
-    { name: 'Features', href: '#' },
-    { name: 'Marketplace', href: '#' },
-    { name: 'Company', href: '#' },
+    { name: 'Features', href: '#features' },
+    { name: 'Services', href: '#services' },
+    { name: 'Process', href: '#process' },
+    { name: 'Contact', href: '#contact' },
 ]
 
 const Nav = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     return (
-        <header className="absolute inset-x-0 top-0 z-50">
+        <header>
             <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6">
                 <a href="/" className="-m-1.5 p-1.5">
                     <span className="sr-only">Your Company</span>
                     <img
                         alt=""
-                        src="src/assets/logo.png"
-                        className="w-32 h-auto"
+                        src="src/assets/logo.svg"
+                        className="w-52 h-auto"
                     />
                 </a>
                 <div className="flex lg:hidden">
