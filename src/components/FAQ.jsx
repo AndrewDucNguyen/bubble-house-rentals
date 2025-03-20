@@ -3,11 +3,22 @@ import { Minus, Plus } from 'lucide-react'
 
 const faqs = [
     {
-        question: "What's the best thing about Switzerland?",
+        question: "How do I book?",
         answer:
-            "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+            "Booking is easy! Simply visit our process section then fill out the contact form. We'll contact you about your booking shortly after."
     },
-    // More questions...
+    {
+        question: "What are the prices?",
+        answer: "Our prices vary based on the type of bouncy house and add-ons. We offer competitive rates to ensure you get the best value. Contact us for more pricing details."
+    },
+    {
+        question: "Do you deliver?",
+        answer: "Yes, we provide delivery and setup at your chosen location that is within Wichita, KS. We charge a delivery fee if it is outside of Wichita, KS. Our team ensures everything is ready for your event."
+    },
+    {
+        question: "Are the rentals safe?",
+        answer: "Absolutely! Safety is our top priority. All our bouncy houses are regularly inspected and cleaned to ensure a safe and fun experience for everyone."
+    }
 ]
 
 export default function FAQ() {

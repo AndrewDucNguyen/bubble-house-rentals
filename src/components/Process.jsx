@@ -19,12 +19,12 @@ const steps = [
     {
         id: '04',
         name: 'Enjoy & Make Memories',
-        description: 'Faucibus nec enim leo et.'
+        description: "Relax and enjoy your event while the kids have a blast in the bounce house. We'll handle the rest."
     },
     {
         id: '05',
         name: 'We Pack & Clean up',
-        description: 'Iusto et officia maiores porro ad non quas.'
+        description: "Once your event is over, we’ll pack up everything and leave the area spotless, ensuring a hassle-free experience."
     },
 ]
 
@@ -38,17 +38,17 @@ export default function Process() {
         <div id="features" className="bg-white py-24 sm:py-32">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-                    <nav aria-label="Progress" className='col-span-3'>
+                    <nav aria-label="Progress" className='col-span-3 lg:max-w-lg'>
                         <ol role="list" className="overflow-hidden">
                             {steps.map((step, stepIdx) => (
                                 <li key={step.name} className={classNames(stepIdx !== steps.length - 1 ? 'pb-10' : '', 'relative')}>
                                     <>
                                         {stepIdx !== steps.length - 1 ? (
-                                            <div aria-hidden="true" className="absolute top-4 left-6 mt-0.5 -ml-px h-full w-0.5 bg-indigo-600" />
+                                            <div aria-hidden="true" className="absolute top-4 left-6 mt-0.5 -ml-px h-full w-0.5 bg-primary" />
                                         ) : null}
                                         <div className="group relative flex items-start">
                                             <span className="flex h-12 items-center">
-                                                <span className="relative z-10 flex size-12 items-center justify-center rounded-full bg-white border-gray-300 border-2">
+                                                <span className="relative z-10 flex size-12 items-center justify-center rounded-full bg-white border-primary border-2">
                                                     <span className="text-gray-500 group-hover:text-gray-900">{step.id}</span>
                                                 </span>
                                             </span>
@@ -63,13 +63,12 @@ export default function Process() {
                         </ol>
                     </nav>
                     <div className="col-span-2">
-                        <h2 className="text-base/7 font-semibold text-indigo-600">Everything you need</h2>
+                        <h2 className="text-base/7 font-semibold text-primary">Everything you need</h2>
                         <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">
                             All-in-one platform
                         </p>
                         <p className="mt-6 text-base/7 text-gray-600">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste
-                            dolor cupiditate blanditiis ratione.
+                            Our bounce house rental service offers a seamless experience from start to finish. From booking your event to packing up, we handle all the details so you can focus on having fun and making memories. With a variety of bounce house styles and options, you’ll find the perfect fit for your occasion.
                         </p>
                     </div>
                 </div>

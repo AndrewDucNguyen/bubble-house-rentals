@@ -6,8 +6,6 @@ export default {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-      },
       fontFamily: {
         'libre': ['Libre Baskerville', 'sans-serif'],
         'montserrat': ['Montserrat Variable', 'Montserrat', 'sans-serif']

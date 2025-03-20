@@ -23,7 +23,29 @@
   src: url(/src/assets/fonts/Montserrat-VariableFont_wght.ttf) format('truetype');
 }
 
-@theme { 
-  --color-primary: #e4b1b1;
-}
+@theme {
+  /* Primary Colors */
+  --color-primary: #E4B1B1;
 
+  --color-primaryLight: #ECC8C8;
+  --color-primaryLighter: #F9EFEF;
+  --color-primaryLightest: #FCF7F7;
+
+  --color-primaryDark: #B68D8D;
+  --color-primaryDarker: #5B4646;
+  --color-primaryDarkest: #443535;
+
+  /* Secondary Colors */
+  --color-secondary: #E4D5AF;
+
+  --color-secondaryLight: #ECE1C7;
+  --color-secondaryLighter: #F9F6EF;
+  --color-secondaryLightest: #FCFAF7;
+
+  --color-secondaryDark: #B6AA8C;
+  --color-secondaryDarker: #5B5546;
+  --color-secondaryDarkest: #443F34;
+
+  /* Tertiary Colors */
+  --color-tertiary: #B4B0E5;
+}

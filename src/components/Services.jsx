@@ -13,6 +13,13 @@ const tabs = [
                 imageSrc: 'src/assets/images/white_castle.jpg',
                 imageAlt: 'Maple organizer base with slots, supporting white polycarbonate trays of various sizes.',
             },
+            {
+                name: 'White Castle',
+                description:
+                    'The Organize base set allows you to configure and evolve your setup as your items and habits change. The included trays and optional add-ons are easily rearranged to achieve that perfect setup.',
+                imageSrc: 'src/assets/images/white_castle.jpg',
+                imageAlt: 'Maple organizer base with slots, supporting white polycarbonate trays of various sizes.',
+            },
         ],
     },
     {
@@ -61,11 +68,10 @@ export default function Services() {
                 <div className="mx-auto max-w-2xl px-4 lg:max-w-none lg:px-0">
                     <div className="max-w-3xl mx-auto text-center">
                         <h2 id="features-heading" className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                            Technical Specifications
+                            Our Services
                         </h2>
                         <p className="mt-4 text-gray-500">
-                            The Organize modular system offers endless options for arranging your favorite and most used items. Keep
-                            everything at reach and in its place, while dressing up your workspace.
+                            Our high-quality inflatable bounce houses, balloons, and accessories are designed with safety and fun in mind. Each product is made from durable, lead-free materials that meet industry safety standards. We ensure proper setup for a secure experience, so all you need to do is enjoy your event without any worries.
                         </p>
                     </div>
 
@@ -76,7 +82,7 @@ export default function Services() {
                                     {tabs.map((tab) => (
                                         <Tab
                                             key={tab.name}
-                                            className="border-b-2 border-transparent py-6 text-sm font-medium whitespace-nowrap text-gray-500 hover:border-gray-300 hover:text-gray-700 data-selected:border-indigo-500 data-selected:text-indigo-600"
+                                            className="border-b-2 border-transparent focus-visible:outline-none py-6 text-sm font-medium whitespace-nowrap text-gray-500 hover:border-gray-300 hover:text-gray-700 data-selected:border-primary data-selected:text-primary"
                                         >
                                             {tab.name}
                                         </Tab>
