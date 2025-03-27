@@ -17,7 +17,21 @@ const tabs = [
                 name: 'White Castle',
                 description:
                     'The Organize base set allows you to configure and evolve your setup as your items and habits change. The included trays and optional add-ons are easily rearranged to achieve that perfect setup.',
-                imageSrc: 'src/assets/images/white_castle.jpg',
+                imageSrc: 'src/assets/images/white_bounce_house.jpg',
+                imageAlt: 'Maple organizer base with slots, supporting white polycarbonate trays of various sizes.',
+            },
+            {
+                name: 'White Castle',
+                description:
+                    'The Organize base set allows you to configure and evolve your setup as your items and habits change. The included trays and optional add-ons are easily rearranged to achieve that perfect setup.',
+                imageSrc: 'src/assets/images/white_bounce_house_2.jpg',
+                imageAlt: 'Maple organizer base with slots, supporting white polycarbonate trays of various sizes.',
+            },
+            {
+                name: 'White Castle',
+                description:
+                    'The Organize base set allows you to configure and evolve your setup as your items and habits change. The included trays and optional add-ons are easily rearranged to achieve that perfect setup.',
+                imageSrc: 'src/assets/images/white_bounce_house_3.png',
                 imageAlt: 'Maple organizer base with slots, supporting white polycarbonate trays of various sizes.',
             },
         ],
