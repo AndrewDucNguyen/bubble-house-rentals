@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form'
 import { personalInformationSchema, schema } from '../lib/schema'
 import { toast } from 'react-toastify'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { DevTool } from '@hookform/devtools'
 import { sendContactEmail } from '../services/emailService'
 
 
