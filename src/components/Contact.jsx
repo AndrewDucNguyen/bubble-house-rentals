@@ -1,26 +1,26 @@
 'use client'
 
 import { useState } from 'react'
-import { Field, Label, Switch } from '@headlessui/react'
-import { ChevronDown } from 'lucide-react'
 
 import { useForm } from 'react-hook-form'
 import { personalInformationSchema, schema } from '../lib/schema'
 import { toast } from 'react-toastify'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { DevTool } from '@hookform/devtools'
+import { sendContactEmail } from '../services/emailService'
 
 
 
 const Contact = () => {
     const [currentStep, setCurrentStep] = useState(0)
 
-    const { register, getValues, handleSubmit, reset, setError, formState: { errors, isSubmitting } } = useForm({
+    const { register, control, getValues, handleSubmit, reset, setError, formState: { errors, isSubmitting } } = useForm({
         defaultValues: {
             firstName: "",
             lastName: "",
             email: "",
             number: "",
-            itemInterested: "",
+            itemsInterested: [],
             eventDate: new Date(),
             setupTime: "",
             pickupTime: "",
@@ -63,29 +63,17 @@ const Contact = () => {
 
     const onSubmit = async (data) => {
         try {
-            const response = await fetch('/api/sendContact', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            });
-
-            if (!response.ok) {
-                throw new Error("Failed to submit form")
-            }
-
-            toast.success('Successful!');
+            await sendContactEmail(data);
+            toast.success('Form submitted successfully! We will contact you soon.');
             reset();
-            setStep(0);
+            setCurrentStep(0);
         } catch (error) {
-            toast.warn('Error...');
-            console.log('Error:', errors);
+            console.error('Error:', error);
+            toast.error(error.message || 'An error occurred while submitting the form');
             setError("root", {
-                message: "There was an error..."
+                message: error.message || "There was an error submitting the form"
             });
         }
-
     }
 
     const renderStep = () => {
@@ -193,8 +181,8 @@ const Contact = () => {
             case 1:
                 return (
                     <>
-                        <div>
-                            <div>
+                        <div className="space-y-12">
+                            <div className="border-b border-gray-900/10 py-12">
                                 <h2 className="text-base/7 font-semibold text-gray-900">Event Information</h2>
                                 <p className="mt-1 text-sm/6 text-gray-600">Use a permanent address where you can receive mail.</p>
 
@@ -230,7 +218,7 @@ const Contact = () => {
                                                 })}
                                                 type="text"
                                                 autoComplete="city"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
                                             />
                                             {errors.city && (
                                                 <div className="text-red-500 mt-1 sm:text-sm/6">{errors.city.message}</div>
@@ -249,7 +237,7 @@ const Contact = () => {
                                                 })}
                                                 type="text"
                                                 autoComplete="state"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
                                             />
                                             {errors.state && (
                                                 <div className="text-red-500 mt-1 sm:text-sm/6">{errors.state.message}</div>
@@ -268,7 +256,7 @@ const Contact = () => {
                                                 })}
                                                 type="text"
                                                 autoComplete="postal-code"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
                                             />
                                             {errors.postal && (
                                                 <div className="text-red-500 mt-1 sm:text-sm/6">{errors.postal.message}</div>
@@ -289,7 +277,7 @@ const Contact = () => {
                                                     valueAsDate: true
                                                 })}
                                                 type="date"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
                                             />
                                             {errors.eventDate && (
                                                 <div className="text-red-500 mt-1">{errors.eventDate.message}</div>
@@ -307,7 +295,7 @@ const Contact = () => {
                                                 {...register('eventType', {
                                                     required: true
                                                 })}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm/6"
+                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
                                             >
                                                 <option>Birthday</option>
                                                 <option>Wedding</option>
@@ -330,7 +318,7 @@ const Contact = () => {
                                                 {...register('surfaceType', {
                                                     required: true
                                                 })}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm/6"
+                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
                                             >
                                                 <option>Grass</option>
                                                 <option>Hard floor</option>
@@ -342,9 +330,63 @@ const Contact = () => {
                                         </div>
                                     </div>
 
-                                    {/* Item interested in - checkbox*/}
+                                    {/* Item interested in - multi-select checkbox */}
+                                    <div className="sm:col-span-3">
+                                        <label htmlFor="itemsInterested" className="block text-sm/6 font-semibold text-gray-900">
+                                            Items Interested In <em className='text-red-500' aria-required='true'>*</em>
+                                        </label>
+                                        <div className="mt-2 space-y-2">
+                                            <div className="flex items-center">
+                                                <input
+                                                    {...register('itemsInterested')}
+                                                    type="checkbox"
+                                                    value="Bubble House"
+                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                                />
+                                                <label className="ml-2 block text-base text-gray-900">
+                                                    Bubble House
+                                                </label>
+                                            </div>
+                                            <div className="flex items-center">
+                                                <input
+                                                    {...register('itemsInterested')}
+                                                    type="checkbox"
+                                                    value="Bubble Tent"
+                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                                />
+                                                <label className="ml-2 block text-base text-gray-900">
+                                                    Bubble Tent
+                                                </label>
+                                            </div>
+                                            <div className="flex items-center">
+                                                <input
+                                                    {...register('itemsInterested')}
+                                                    type="checkbox"
+                                                    value="Bubble Dome"
+                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                                />
+                                                <label className="ml-2 block text-base text-gray-900">
+                                                    Bubble Dome
+                                                </label>
+                                            </div>
+                                            <div className="flex items-center">
+                                                <input
+                                                    {...register('itemsInterested')}
+                                                    type="checkbox"
+                                                    value="Bubble Chair"
+                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                                />
+                                                <label className="ml-2 block text-base text-gray-900">
+                                                    Bubble Chair
+                                                </label>
+                                            </div>
+                                        </div>
+                                        {errors.itemsInterested && (
+                                            <div className="text-red-500 mt-1 sm:text-sm/6">{errors.itemsInterested.message}</div>
+                                        )}
+                                    </div>
 
-                                    {/* power available - dropdown */}
+                                    {/* power available */}
                                     <div className="sm:col-span-3">
                                         <label htmlFor="powerAvailable" className="block text-sm/6 font-semibold text-gray-900">
                                             Power Available <em className='text-red-500' aria-required='true'>*</em>
@@ -354,7 +396,7 @@ const Contact = () => {
                                                 {...register('powerAvailable', {
                                                     required: true
                                                 })}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm/6"
+                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
                                             >
                                                 <option>Yes</option>
                                                 <option>No</option>
@@ -365,7 +407,7 @@ const Contact = () => {
                                         </div>
                                     </div>
 
-                                    {/* Setup time - time?*/}
+                                    {/* Setup time */}
                                     <div className="sm:col-span-2">
                                         <label htmlFor="setupTime" className="block text-sm/6 font-semibold text-gray-900">
                                             Setup Time <em className='text-red-500' aria-required='true'>*</em>
@@ -377,7 +419,7 @@ const Contact = () => {
                                                     required: true
                                                 })}
                                                 type="time"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
                                             />
                                             {errors.setupTime && (
                                                 <div className="text-red-500 mt-1">{errors.setupTime.message}</div>
@@ -397,7 +439,7 @@ const Contact = () => {
                                                     required: true
                                                 })}
                                                 type="time"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
                                             />
                                             {errors.pickupTime && (
                                                 <div className="text-red-500 mt-1">{errors.pickupTime.message}</div>
@@ -412,10 +454,10 @@ const Contact = () => {
                                         </label>
                                         <div className="mt-2">
                                             <select
-                                                {...register('preferredCotnact', {
+                                                {...register('preferredContact', {
                                                     required: true
                                                 })}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm/6"
+                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
                                             >
                                                 <option>Text</option>
                                                 <option>Call</option>
@@ -436,7 +478,7 @@ const Contact = () => {
                                             <textarea
                                                 {...register('additionalNotes',
                                                 )}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm/6"
+                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
                                             >
                                             </textarea>
                                             {errors.additionalNotes && (
@@ -451,148 +493,56 @@ const Contact = () => {
                         </div>
                     </>
                 )
+            case 2:
+                return (
+                    <>
+                        <div className="space-y-12">
+                            <div className="border-b border-gray-900/10 py-12">
+                                <h2 className="text-base/7 font-semibold text-gray-900">Preview Information</h2>
+
+                                <div className="flex flex-row gap-y-4 sm:flex-col">
+                                    <div className='flex flex-col sm:flex-row'>
+                                        <div className='w-full sm:w-1/2'>
+                                            <h3 className="font-semibold">Personal Information</h3>
+                                            <p><span className='font-semibold'>Name:</span> {getValues('firstName')} {getValues('lastName')}</p>
+                                            <p><span className='font-semibold'>Email:</span> {getValues('email')}</p>
+                                            <p><span className='font-semibold'>Phone:</span> {getValues('number')}</p>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div className="sm:col-span-2 mt-4">
+                                        <h3 className="font-semibold">Event Information</h3>
+                                        <p><span className='font-semibold'>Event Date:</span> {getValues('eventDate')?.toLocaleDateString()}</p>
+                                        <p><span className='font-semibold'>Setup Time:</span> {getValues('setupTime')}</p>
+                                        <p><span className='font-semibold'>Pickup Time:</span> {getValues('pickupTime')}</p>
+                                        <p><span className='font-semibold'>Items Interested:</span> {getValues('itemsInterested')?.join(', ')}</p>
+                                        <p><span className='font-semibold'>Surface Type:</span> {getValues('surfaceType')}</p>
+                                        <p><span className='font-semibold'>Event Type:</span> {getValues('eventType')}</p>
+                                        <p><span className='font-semibold'>Power Availability:</span> {getValues('powerAvailable')}</p>
+                                        <p><span className='font-semibold'>Preferred Contact:</span> {getValues('preferredContact')}</p>
+                                    </div>
+                                    <div className='w-full sm:w-1/2'>
+                                        <h3 className="font-semibold">Address</h3>
+                                        <p>{getValues('street')}</p>
+                                        <p>{getValues('city')}, {getValues('state')} {getValues('postal')}</p>
+                                    </div>
+
+                                    <div>
+                                        <h3>Additional Notes</h3>
+                                        <p>{getValues('additionalNotes') || 'N/A'}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                )
         }
     }
 
     return (
 
-        //         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-        //             <div>
-        //                 <label htmlFor="first-name" className="block text-sm/6 font-semibold">
-        //                     First name
-        //                 </label>
-        //                 <div className="mt-2.5">
-        //                     <input
-        //                         id="first-name"
-        //                         name="first-name"
-        //                         type="text"
-        //                         autoComplete="given-name"
-        //                         className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
-        //                     />
-        //                 </div>
-        //             </div>
-        //             <div>
-        //                 <label htmlFor="last-name" className="block text-sm/6 font-semibold">
-        //                     Last name
-        //                 </label>
-        //                 <div className="mt-2.5">
-        //                     <input
-        //                         id="last-name"
-        //                         name="last-name"
-        //                         type="text"
-        //                         autoComplete="family-name"
-        //                         className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
-        //                     />
-        //                 </div>
-        //             </div>
-        //             <div className="sm:col-span-2">
-        //                 <label htmlFor="company" className="block text-sm/6 font-semibold">
-        //                     Company
-        //                 </label>
-        //                 <div className="mt-2.5">
-        //                     <input
-        //                         id="company"
-        //                         name="company"
-        //                         type="text"
-        //                         autoComplete="organization"
-        //                         className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
-        //                     />
-        //                 </div>
-        //             </div>
-        //             <div className="sm:col-span-2">
-        //                 <label htmlFor="email" className="block text-sm/6 font-semibold">
-        //                     Email
-        //                 </label>
-        //                 <div className="mt-2.5">
-        //                     <input
-        //                         id="email"
-        //                         name="email"
-        //                         type="email"
-        //                         autoComplete="email"
-        //                         className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
-        //                     />
-        //                 </div>
-        //             </div>
-        //             <div className="sm:col-span-2">
-        //                 <label htmlFor="phone-number" className="block text-sm/6 font-semibold">
-        //                     Phone number
-        //                 </label>
-        //                 <div className="mt-2.5">
-        //                     <div className="flex rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-black">
-        //                         <div className="grid shrink-0 grid-cols-1 focus-within:relative">
-        //                             <select
-        //                                 id="country"
-        //                                 name="country"
-        //                                 autoComplete="country"
-        //                                 aria-label="Country"
-        //                                 className="col-start-1 row-start-1 w-full appearance-none rounded-md py-2 pr-7 pl-3.5 text-base text-gray-500 placeholder:text-gray-400 sm:text-sm/6"
-        //                             >
-        //                                 <option>US</option>
-        //                                 <option>CA</option>
-        //                                 <option>EU</option>
-        //                             </select>
-        //                             <ChevronDown
-        //                                 aria-hidden="true"
-        //                                 className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-        //                             />
-        //                         </div>
-        //                         <input
-        //                             id="phone-number"
-        //                             name="phone-number"
-        //                             type="text"
-        //                             placeholder="123-456-7890"
-        //                             className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
-        //                         />
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //             <div className="sm:col-span-2">
-        //                 <label htmlFor="message" className="block text-sm/6 font-semibold">
-        //                     Message
-        //                 </label>
-        //                 <div className="mt-2.5">
-        //                     <textarea
-        //                         id="message"
-        //                         name="message"
-        //                         rows={4}
-        //                         className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
-        //                         defaultValue={''}
-        //                     />
-        //                 </div>
-        //             </div>
-        //             <Field className="flex gap-x-4 sm:col-span-2">
-        //                 <div className="flex h-6 items-center">
-        //                     <Switch
-        //                         checked={agreed}
-        //                         onChange={setAgreed}
-        //                         className="group flex w-8 flex-none cursor-pointer rounded-full bg-gray-200 p-px ring-1 ring-gray-900/5 transition-colors duration-200 ease-in-out ring-inset focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black data-checked:bg-black"
-        //                     >
-        //                         <span className="sr-only">Agree to policies</span>
-        //                         <span
-        //                             aria-hidden="true"
-        //                             className="size-4 transform rounded-full bg-white ring-1 shadow-xs ring-gray-900/5 transition duration-200 ease-in-out group-data-checked:translate-x-3.5"
-        //                         />
-        //                     </Switch>
-        //                 </div>
-        //                 <Label className="text-sm/6 text-gray-600">
-        //                     By selecting this, you agree to our{' '}
-        //                     <a href="#" className="font-semibold text-black">
-        //                         privacy&nbsp;policy
-        //                     </a>
-        //                     .
-        //                 </Label>
-        //             </Field>
-        //         </div>
-        //         <div className="mt-10">
-        //             <button
-        //                 type="submit"
-        //                 className="block w-full rounded-md bg-primary px-3.5 py-2.5 text-center text-sm font-semibold  shadow-xs hover:bg-primaryLight focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-        //             >
-        //                 Let's talk
-        //             </button>
-        //         </div>
-        //     </form>
-        // </div>
         <div id="contact" className="isolate px-6 py-24 sm:py-32 lg:px-8">
             <div className="mx-auto max-w-2xl text-center pb-10">
                 <h2 className="text-4xl font-semibold tracking-tight text-balance sm:text-5xl">Contact Us</h2>
@@ -632,7 +582,7 @@ const Contact = () => {
 
                     {renderStep()}
 
-                    <div className='flex items-center justify-center gap-x-6'>
+                    <div className='flex items-center justify-center gap-x-6 mt-12'>
 
                         {currentStep > 0 && (
                             <button
@@ -665,7 +615,7 @@ const Contact = () => {
                         )}
                     </div>
 
-                    {errors.root && <div className='text-red-500 mt-1'>errors.root.message</div>}
+                    {errors.root && <div className='text-red-500 mt-1'>{errors.root.message}</div>}
                 </form >
 
             </div >

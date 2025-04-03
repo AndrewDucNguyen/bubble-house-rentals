@@ -8,7 +8,7 @@ export const personalInformationSchema = z.object({
 });
 
 export const eventInformationSchema = z.object({
-    itemInterested: z.string(),
+    itemsInterested: z.array(z.string()).min(1, 'Please select at least one item'),
     eventDate: z.coerce.date(),
     setupTime: z.string(),
     pickupTime: z.string(),
