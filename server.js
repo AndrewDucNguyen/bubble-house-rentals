@@ -18,11 +18,12 @@ app.post('/api/send-email', async (req, res) => {
         const formData = req.body;
 
         const { data, error } = await resend.emails.send({
-            from: 'Bubble House Rentals <onboarding@resend.dev>',
-            to: ['anguyen0615@gmail.com'],
-            subject: 'New Contact Form Submission',
+            from: 'The Bubble House Rentals <info@thebubblehouserentals.com>',
+            to: `${formData.email}`,
+            bcc: 'thebubblehouserentals@gmail.com',
+            subject: `${formData.firstName} ${formData.lastName} - Rental Inquiry`,
             html: `
-                <h2>New Contact Form Submission</h2>
+                <h2>New Rental Form Submission</h2>
                 <h3>Personal Information</h3>
                 <p><strong>Name:</strong> ${formData.firstName} ${formData.lastName}</p>
                 <p><strong>Email:</strong> ${formData.email}</p>

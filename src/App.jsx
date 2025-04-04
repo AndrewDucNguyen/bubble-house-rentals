@@ -9,10 +9,12 @@ import Contact from './components/Contact'
 import Process from './components/Process'
 import FAQ from './components/FAQ'
 import Testimonials from './components/Testimonials'
+import { ToastContainer } from 'react-toastify'
 
 const App = () => {
   return (
     <>
+      <ToastContainer />
       <Nav />
       <Hero />
       <Feature />

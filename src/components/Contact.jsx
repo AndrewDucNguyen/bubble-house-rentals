@@ -339,44 +339,44 @@ const Contact = () => {
                                                 <input
                                                     {...register('itemsInterested')}
                                                     type="checkbox"
-                                                    value="Bubble House"
+                                                    value="White Castle"
                                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                 />
                                                 <label className="ml-2 block text-base text-gray-900">
-                                                    Bubble House
+                                                    White Castle
                                                 </label>
                                             </div>
                                             <div className="flex items-center">
                                                 <input
                                                     {...register('itemsInterested')}
                                                     type="checkbox"
-                                                    value="Bubble Tent"
+                                                    value="White Bounce House w/ Slide"
                                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                 />
                                                 <label className="ml-2 block text-base text-gray-900">
-                                                    Bubble Tent
+                                                    White Bounce House w/ Slide
                                                 </label>
                                             </div>
                                             <div className="flex items-center">
                                                 <input
                                                     {...register('itemsInterested')}
                                                     type="checkbox"
-                                                    value="Bubble Dome"
+                                                    value="Square Bonuce House"
                                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                 />
                                                 <label className="ml-2 block text-base text-gray-900">
-                                                    Bubble Dome
+                                                    Square Bonuce House
                                                 </label>
                                             </div>
                                             <div className="flex items-center">
                                                 <input
                                                     {...register('itemsInterested')}
                                                     type="checkbox"
-                                                    value="Bubble Chair"
+                                                    value="Classic Bounce House"
                                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                 />
                                                 <label className="ml-2 block text-base text-gray-900">
-                                                    Bubble Chair
+                                                    Classic Bounce House
                                                 </label>
                                             </div>
                                         </div>
@@ -486,7 +486,10 @@ const Contact = () => {
                                         </div>
                                     </div>
 
-
+                                    {/* TO DO:
+                                        PETS
+                                        Indoor/outdoor
+                                    */}
                                 </div>
                             </div>
                         </div>
@@ -502,7 +505,7 @@ const Contact = () => {
                                 <div className="flex flex-row gap-y-4 sm:flex-col">
                                     <div className='flex flex-col sm:flex-row'>
                                         <div className='w-full sm:w-1/2'>
-                                            <h3 className="font-semibold">Personal Information</h3>
+                                            <h3 className="font-semibold mb-5">Personal Information</h3>
                                             <p><span className='font-semibold'>Name:</span> {getValues('firstName')} {getValues('lastName')}</p>
                                             <p><span className='font-semibold'>Email:</span> {getValues('email')}</p>
                                             <p><span className='font-semibold'>Phone:</span> {getValues('number')}</p>
@@ -512,7 +515,7 @@ const Contact = () => {
                                     </div>
 
                                     <div className="sm:col-span-2 mt-4">
-                                        <h3 className="font-semibold">Event Information</h3>
+                                        <h3 className="font-semibold mb-5">Event Information</h3>
                                         <p><span className='font-semibold'>Event Date:</span> {getValues('eventDate')?.toLocaleDateString()}</p>
                                         <p><span className='font-semibold'>Setup Time:</span> {getValues('setupTime')}</p>
                                         <p><span className='font-semibold'>Pickup Time:</span> {getValues('pickupTime')}</p>
