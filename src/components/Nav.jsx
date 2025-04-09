@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
+import { AlignJustify, X } from 'lucide-react'
 
 const navigation = [
     { name: 'Features', href: '#features' },
@@ -31,6 +32,7 @@ const Nav = () => {
                         className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
                     >
                         <span className="sr-only">Open main menu</span>
+                        <AlignJustify />
                     </button>
                 </div>
                 <div className="hidden lg:flex lg:gap-x-12">
@@ -49,7 +51,7 @@ const Nav = () => {
                             <span className="sr-only">Your Company</span>
                             <img
                                 alt=""
-                                src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+                                src="src/assets/logo.svg"
                                 className="w-16 h-auto"
                             />
                         </a>
@@ -59,6 +61,7 @@ const Nav = () => {
                             className="-m-2.5 rounded-md p-2.5 text-gray-700"
                         >
                             <span className="sr-only">Close menu</span>
+                            <X />
                         </button>
                     </div>
                     <div className="mt-6 flow-root">
