@@ -7,6 +7,7 @@ import { personalInformationSchema, schema } from '../lib/schema'
 import { toast } from 'react-toastify'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { sendContactEmail } from '../services/emailService'
+import { DevTool } from '@hookform/devtools'
 
 
 
@@ -27,12 +28,13 @@ const Contact = () => {
             city: "",
             state: "",
             postal: "",
-            eventType: "",
-            surfaceType: "",
-            powerAvailable: "",
-            preferredContact: "",
+            eventType: "birthday",
+            surfaceType: "grass",
+            powerAvailable: "no",
+            petStatus: "no",
+            eventLocation: "outdoor",
+            preferredContact: "text",
             additionalNotes: ""
-
         },
         resolver: zodResolver(currentStep === 0 ? personalInformationSchema : schema)
     });
@@ -48,7 +50,7 @@ const Contact = () => {
         },
         {
             id: 'Step 3',
-            name: 'Preview',
+            name: 'Preview Information',
         }
     ]
 
@@ -171,7 +173,6 @@ const Contact = () => {
                                         </div>
                                     </div>
 
-
                                 </div>
                             </div>
                         </div>
@@ -187,8 +188,9 @@ const Contact = () => {
 
                                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
+                                    {/* Street */}
                                     <div className="sm:col-span-2">
-                                        <label htmlFor="city" className="block text-sm/6 font-semibold text-gray-900">
+                                        <label htmlFor="street" className="block text-sm/6 font-semibold text-gray-900">
                                             Street <em className='text-red-500' aria-required='true'>*</em>
                                         </label>
                                         <div className="mt-2.5">
@@ -206,6 +208,7 @@ const Contact = () => {
                                         </div>
                                     </div>
 
+                                    {/* City */}
                                     <div className="sm:col-span-2">
                                         <label htmlFor="city" className="block text-sm/6 font-semibold text-gray-900">
                                             City <em className='text-red-500' aria-required='true'>*</em>
@@ -225,6 +228,7 @@ const Contact = () => {
                                         </div>
                                     </div>
 
+                                    {/* State */}
                                     <div className="sm:col-span-2">
                                         <label htmlFor="state" className="block text-sm/6 font-semibold text-gray-900">
                                             State <em className='text-red-500' aria-required='true'>*</em>
@@ -244,6 +248,7 @@ const Contact = () => {
                                         </div>
                                     </div>
 
+                                    {/* Zip Code */}
                                     <div className="sm:col-span-2">
                                         <label htmlFor="postal-code" className="block text-sm/6 font-semibold text-gray-900">
                                             ZIP Code <em className='text-red-500' aria-required='true'>*</em>
@@ -259,72 +264,6 @@ const Contact = () => {
                                             />
                                             {errors.postal && (
                                                 <div className="text-red-500 mt-1 sm:text-sm/6">{errors.postal.message}</div>
-                                            )}
-                                        </div>
-                                    </div>
-
-                                    {/* event date */}
-                                    <div className="sm:col-span-2">
-                                        <label htmlFor="eventDate" className="block text-sm/6 font-semibold text-gray-900">
-                                            Event Date <em className='text-red-500' aria-required='true'>*</em>
-                                        </label>
-                                        <div className="mt-2.5">
-                                            <input
-                                                aria-required='true'
-                                                {...register('eventDate', {
-                                                    required: true,
-                                                    valueAsDate: true
-                                                })}
-                                                type="date"
-                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
-                                            />
-                                            {errors.eventDate && (
-                                                <div className="text-red-500 mt-1">{errors.eventDate.message}</div>
-                                            )}
-                                        </div>
-                                    </div>
-
-                                    {/* event type - dropdown */}
-                                    <div className="sm:col-span-3">
-                                        <label htmlFor="eventType" className="block text-sm/6 font-semibold text-gray-900">
-                                            Event Type <em className='text-red-500' aria-required='true'>*</em>
-                                        </label>
-                                        <div className="mt-2">
-                                            <select
-                                                {...register('eventType', {
-                                                    required: true
-                                                })}
-                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
-                                            >
-                                                <option>Birthday</option>
-                                                <option>Wedding</option>
-                                                <option>Party</option>
-                                                <option>Other</option>
-                                            </select>
-                                            {errors.eventType && (
-                                                <div className="text-red-500 mt-1 sm:text-sm/6">{errors.eventType.message}</div>
-                                            )}
-                                        </div>
-                                    </div>
-
-                                    {/* surface type - dropdown*/}
-                                    <div className="sm:col-span-3">
-                                        <label htmlFor="surfaceType" className="block text-sm/6 font-semibold text-gray-900">
-                                            Surface Type <em className='text-red-500' aria-required='true'>*</em>
-                                        </label>
-                                        <div className="mt-2">
-                                            <select
-                                                {...register('surfaceType', {
-                                                    required: true
-                                                })}
-                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
-                                            >
-                                                <option>Grass</option>
-                                                <option>Hard floor</option>
-                                                <option>other</option>
-                                            </select>
-                                            {errors.surfaceType && (
-                                                <div className="text-red-500 mt-1 sm:text-sm/6">{errors.surfaceType.message}</div>
                                             )}
                                         </div>
                                     </div>
@@ -385,8 +324,74 @@ const Contact = () => {
                                         )}
                                     </div>
 
+                                    {/* event date */}
+                                    <div className="sm:col-span-2">
+                                        <label htmlFor="eventDate" className="block text-sm/6 font-semibold text-gray-900">
+                                            Event Date <em className='text-red-500' aria-required='true'>*</em>
+                                        </label>
+                                        <div className="mt-2.5">
+                                            <input
+                                                aria-required='true'
+                                                {...register('eventDate', {
+                                                    required: true,
+                                                    valueAsDate: true
+                                                })}
+                                                type="date"
+                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
+                                            />
+                                            {errors.eventDate && (
+                                                <div className="text-red-500 mt-1">{errors.eventDate.message}</div>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* event type - dropdown */}
+                                    <div className="sm:col-span-2">
+                                        <label htmlFor="eventType" className="block text-sm/6 font-semibold text-gray-900">
+                                            Event Type <em className='text-red-500' aria-required='true'>*</em>
+                                        </label>
+                                        <div className="mt-2">
+                                            <select
+                                                {...register('eventType', {
+                                                    required: true
+                                                })}
+                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
+                                            >
+                                                <option value="birthday">Birthday</option>
+                                                <option value="wedding">Wedding</option>
+                                                <option value="party">Party</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                            {errors.eventType && (
+                                                <div className="text-red-500 mt-1 sm:text-sm/6">{errors.eventType.message}</div>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* surface type - dropdown*/}
+                                    <div className="sm:col-span-2">
+                                        <label htmlFor="surfaceType" className="block text-sm/6 font-semibold text-gray-900">
+                                            Surface Type <em className='text-red-500' aria-required='true'>*</em>
+                                        </label>
+                                        <div className="mt-2">
+                                            <select
+                                                {...register('surfaceType', {
+                                                    required: true
+                                                })}
+                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
+                                            >
+                                                <option value="grass">Grass</option>
+                                                <option value="hard floor">Hard floor</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                            {errors.surfaceType && (
+                                                <div className="text-red-500 mt-1 sm:text-sm/6">{errors.surfaceType.message}</div>
+                                            )}
+                                        </div>
+                                    </div>
+
                                     {/* power available */}
-                                    <div className="sm:col-span-3">
+                                    <div className="sm:col-span-2">
                                         <label htmlFor="powerAvailable" className="block text-sm/6 font-semibold text-gray-900">
                                             Power Available <em className='text-red-500' aria-required='true'>*</em>
                                         </label>
@@ -397,11 +402,53 @@ const Contact = () => {
                                                 })}
                                                 className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
                                             >
-                                                <option>Yes</option>
-                                                <option>No</option>
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
                                             </select>
                                             {errors.powerAvailable && (
                                                 <div className="text-red-500 mt-1 sm:text-sm/6">{errors.powerAvailable.message}</div>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* pets */}
+                                    <div className="sm:col-span-2">
+                                        <label htmlFor="petStatus" className="block text-sm/6 font-semibold text-gray-900">
+                                            Do you have pets? <em className='text-red-500' aria-required='true'>*</em>
+                                        </label>
+                                        <div className="mt-2">
+                                            <select
+                                                {...register('petStatus', {
+                                                    required: true
+                                                })}
+                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
+                                            >
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                            {errors.petStatus && (
+                                                <div className="text-red-500 mt-1 sm:text-sm/6">{errors.petStatus.message}</div>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* indoor/outdoor */}
+                                    <div className="sm:col-span-2">
+                                        <label htmlFor="eventLocation" className="block text-sm/6 font-semibold text-gray-900">
+                                            Event Location <em className='text-red-500' aria-required='true'>*</em>
+                                        </label>
+                                        <div className="mt-2">
+                                            <select
+                                                {...register('eventLocation', {
+                                                    required: true
+                                                })}
+                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
+                                            >
+                                                <option value="indoor">Indoor</option>
+                                                <option value="outdoor">Outdoor</option>
+                                            </select>
+                                            {errors.eventLocation && (
+                                                <div className="text-red-500 mt-1 sm:text-sm/6">{errors.eventLocation.message}</div>
                                             )}
                                         </div>
                                     </div>
@@ -447,8 +494,8 @@ const Contact = () => {
                                     </div>
 
                                     {/* preferred contact - dropdown*/}
-                                    <div className="sm:col-span-3">
-                                        <label htmlFor="preferredCotnact" className="block text-sm/6 font-semibold text-gray-900">
+                                    <div className="sm:col-span-2">
+                                        <label htmlFor="preferredContact" className="block text-sm/6 font-semibold text-gray-900">
                                             Preferred Contact <em className='text-red-500' aria-required='true'>*</em>
                                         </label>
                                         <div className="mt-2">
@@ -458,18 +505,18 @@ const Contact = () => {
                                                 })}
                                                 className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
                                             >
-                                                <option>Text</option>
-                                                <option>Call</option>
-                                                <option>Email</option>
+                                                <option value="text">Text</option>
+                                                <option value="call">Call</option>
+                                                <option value="email">Email</option>
                                             </select>
-                                            {errors.preferredCotnact && (
-                                                <div className="text-red-500 mt-1 sm:text-sm/6">{errors.preferredCotnact.message}</div>
+                                            {errors.preferredContact && (
+                                                <div className="text-red-500 mt-1 sm:text-sm/6">{errors.preferredContact.message}</div>
                                             )}
                                         </div>
                                     </div>
 
                                     {/* additional note */}
-                                    <div className="sm:col-span-3">
+                                    <div className="sm:col-span-6">
                                         <label htmlFor="additionalNotes" className="block text-sm/6 font-semibold text-gray-900">
                                             Additional Notes
                                         </label>
@@ -477,7 +524,7 @@ const Contact = () => {
                                             <textarea
                                                 {...register('additionalNotes',
                                                 )}
-                                                className="block w-full rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
+                                                className="block w-full min-h-24 rounded-md bg-white shadow-sm px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-black"
                                             >
                                             </textarea>
                                             {errors.additionalNotes && (
@@ -486,10 +533,6 @@ const Contact = () => {
                                         </div>
                                     </div>
 
-                                    {/* TO DO:
-                                        PETS
-                                        Indoor/outdoor
-                                    */}
                                 </div>
                             </div>
                         </div>
@@ -501,8 +544,9 @@ const Contact = () => {
                         <div className="space-y-12">
                             <div className="border-b border-gray-900/10 py-12">
                                 <h2 className="text-base/7 font-semibold text-gray-900">Preview Information</h2>
+                                <p className="mt-1 text-sm/6 text-gray-600">Please preview your information before submitting.</p>
 
-                                <div className="flex flex-row gap-y-4 sm:flex-col">
+                                <div className="flex flex-row gap-y-4 sm:flex-col mt-10">
                                     <div className='flex flex-col sm:flex-row'>
                                         <div className='w-full sm:w-1/2'>
                                             <h3 className="font-semibold mb-5">Personal Information</h3>
@@ -523,16 +567,18 @@ const Contact = () => {
                                         <p><span className='font-semibold'>Surface Type:</span> {getValues('surfaceType')}</p>
                                         <p><span className='font-semibold'>Event Type:</span> {getValues('eventType')}</p>
                                         <p><span className='font-semibold'>Power Availability:</span> {getValues('powerAvailable')}</p>
+                                        <p><span className='font-semibold'>Event Location:</span> {getValues('eventLocation')}</p>
+                                        <p><span className='font-semibold'>Pets:</span> {getValues('petStatus')}</p>
                                         <p><span className='font-semibold'>Preferred Contact:</span> {getValues('preferredContact')}</p>
                                     </div>
                                     <div className='w-full sm:w-1/2'>
-                                        <h3 className="font-semibold">Address</h3>
+                                        <h3 className="font-semibold">Address:</h3>
                                         <p>{getValues('street')}</p>
                                         <p>{getValues('city')}, {getValues('state')} {getValues('postal')}</p>
                                     </div>
 
                                     <div>
-                                        <h3>Additional Notes</h3>
+                                        <h3 className='font-semibold'>Additional Notes:</h3>
                                         <p>{getValues('additionalNotes') || 'N/A'}</p>
                                     </div>
                                 </div>
@@ -590,7 +636,7 @@ const Contact = () => {
                             <button
                                 type="button"
                                 onClick={previous}
-                                className='rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-200'
+                                className="rounded-md bg-secondary px-3.5 py-2.5 text-sm font-semibold shadow-xs hover:bg-secondaryLight"
                             >
                                 Previous
                             </button>
@@ -599,7 +645,7 @@ const Contact = () => {
                             <button
                                 type="button"
                                 onClick={handleSubmit(next)}
-                                className='rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
+                                className="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold shadow-xs hover:bg-primaryLight"
                             >
                                 Next
                             </button>
@@ -607,7 +653,7 @@ const Contact = () => {
 
                         {currentStep === 2 && (
                             <button
-                                className='rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
+                                className="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold shadow-xs hover:bg-primaryLight"
                                 disabled={isSubmitting}
                                 type="submit"
                                 onClick={handleSubmit(onSubmit)}
@@ -618,6 +664,7 @@ const Contact = () => {
                     </div>
 
                     {errors.root && <div className='text-red-500 mt-1'>{errors.root.message}</div>}
+                    <DevTool control={control} />
                 </form >
 
             </div >
