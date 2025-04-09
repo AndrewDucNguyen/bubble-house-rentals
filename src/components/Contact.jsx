@@ -7,14 +7,11 @@ import { personalInformationSchema, schema } from '../lib/schema'
 import { toast } from 'react-toastify'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { sendContactEmail } from '../services/emailService'
-import { DevTool } from '@hookform/devtools'
-
-
 
 const Contact = () => {
     const [currentStep, setCurrentStep] = useState(0)
 
-    const { register, control, getValues, handleSubmit, reset, setError, formState: { errors, isSubmitting } } = useForm({
+    const { register, getValues, handleSubmit, reset, setError, formState: { errors, isSubmitting } } = useForm({
         defaultValues: {
             firstName: "",
             lastName: "",
@@ -664,13 +661,11 @@ const Contact = () => {
                     </div>
 
                     {errors.root && <div className='text-red-500 mt-1'>{errors.root.message}</div>}
-                    <DevTool control={control} />
                 </form >
 
             </div >
         </div>
     )
 }
-
 
 export default Contact
