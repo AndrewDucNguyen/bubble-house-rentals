@@ -54,7 +54,7 @@ export default function Feature() {
           <div className="flex items-start justify-end lg:order-first">
             <img
               alt="Product screenshot"
-              src="./src/assets/images/birthday_party.jpg"
+              src="./public/assets/images/birthday_party.jpg"
               width={2432}
               height={1442}
               className="w-[48rem] max-w-none rounded-xl ring-1 shadow-xl ring-gray-400/10 sm:w-[57rem]"

@@ -5,28 +5,28 @@ const bounceHouses = [
         name: 'White Castle',
         description:
             'The Organize base set allows you to configure and evolve your setup as your items and habits change. The included trays and optional add-ons are easily rearranged to achieve that perfect setup.',
-        imageSrc: 'src/assets/images/white_castle.jpg',
+        imagepublic: 'public/assets/images/white_castle.jpg',
         imageAlt: 'Maple organizer base with slots, supporting white polycarbonate trays of various sizes.',
     },
     {
         name: 'White Bounce House w/ Slide',
         description:
             'The Organize base set allows you to configure and evolve your setup as your items and habits change. The included trays and optional add-ons are easily rearranged to achieve that perfect setup.',
-        imageSrc: 'src/assets/images/white_bounce_house_slide.jpg',
+        imagepublic: 'public/assets/images/white_bounce_house_slide.jpg',
         imageAlt: 'Maple organizer base with slots, supporting white polycarbonate trays of various sizes.',
     },
     {
         name: 'Square Bounce House',
         description:
             'The Organize base set allows you to configure and evolve your setup as your items and habits change. The included trays and optional add-ons are easily rearranged to achieve that perfect setup.',
-        imageSrc: 'src/assets/images/square_bounce_house.jpg',
+        imagepublic: 'public/assets/images/square_bounce_house.jpg',
         imageAlt: 'Maple organizer base with slots, supporting white polycarbonate trays of various sizes.',
     },
     {
         name: 'Classic Bounce House',
         description:
             'The Organize base set allows you to configure and evolve your setup as your items and habits change. The included trays and optional add-ons are easily rearranged to achieve that perfect setup.',
-        imageSrc: 'src/assets/images/class_bounce_house.png',
+        imagepublic: 'public/assets/images/class_bounce_house.png',
         imageAlt: 'Maple organizer base with slots, supporting white polycarbonate trays of various sizes.',
     }
 ]
@@ -58,7 +58,7 @@ export default function Services() {
                                         <div className="lg:col-span-7">
                                             <img
                                                 alt={bounceHouse.imageAlt}
-                                                src={bounceHouse.imageSrc}
+                                                src={bounceHouse.imagepublic}
                                                 className="aspect-2/1 w-full rounded-lg bg-gray-100 object-cover sm:aspect-3/2"
                                             />
                                         </div>

@@ -6,7 +6,7 @@ const Hero = () => {
         <div className="relative max-w-7xl mx-auto" >
             <div
                 aria-hidden="true"
-                className="absolute w-full h-full rounded-2xl -z-10 overflow-hidden blur-xs bg-[#0B0B09]/30 bg-[url(./src/assets/images/hero.png)] bg-blend-overlay bg-cover bg-center"
+                className="absolute w-full h-full rounded-2xl -z-10 overflow-hidden blur-xs bg-[#0B0B09]/30 bg-[url(./public/assets/images/hero.png)] bg-blend-overlay bg-cover bg-center"
             >
             </div>
             <div className="mx-auto max-w-5xl py-32 sm:py-48 lg:py-56 relative z-10">

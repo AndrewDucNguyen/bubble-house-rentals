@@ -21,7 +21,7 @@ const Nav = () => {
                     <span className="sr-only">Your Company</span>
                     <img
                         alt=""
-                        src="src/assets/logo.svg"
+                        src="public/assets/logo.svg"
                         className="w-52 h-auto"
                     />
                 </a>
@@ -51,7 +51,7 @@ const Nav = () => {
                             <span className="sr-only">Your Company</span>
                             <img
                                 alt=""
-                                src="src/assets/logo.svg"
+                                src="public/assets/logo.svg"
                                 className="w-16 h-auto"
                             />
                         </a>
