@@ -17,10 +17,9 @@ app.post('/api/send-email', async (req, res) => {
     try {
         const formData = req.body;
 
-        const { data, error } = await resend.emails.send({
-            from: 'The Bubble House Rentals <info@thebubblehouserentals.com>',
+        const { error } = await resend.emails.send({
+            from: `The Bubble House Rentals <${process.env.SENDER_EMAIL}>`,
             to: `${formData.email}`,
-            bcc: 'thebubblehouserentals@gmail.com',
             subject: `${formData.firstName} ${formData.lastName} - Rental Inquiry`,
             html: `
                 <h2>New Rental Form Submission</h2>
@@ -37,13 +36,15 @@ app.post('/api/send-email', async (req, res) => {
                 <p><strong>Event Type:</strong> ${formData.eventType}</p>
                 <p><strong>Surface Type:</strong> ${formData.surfaceType}</p>
                 <p><strong>Power Available:</strong> ${formData.powerAvailable}</p>
+                <p><strong>Pets:</strong> ${formData.petStatus}</p>
+                <p><strong>Event Location:</strong> ${formData.eventLocation}</p>
+                <p><strong>Preferred Contact:</strong> ${formData.preferredContact}</p>
                 
                 <h3>Location</h3>
                 <p>${formData.street}</p>
                 <p>${formData.city}, ${formData.state} ${formData.postal}</p>
                 
                 <h3>Additional Information</h3>
-                <p><strong>Preferred Contact:</strong> ${formData.preferredContact}</p>
                 <p><strong>Additional Notes:</strong> ${formData.additionalNotes || 'N/A'}</p>
             `
         });
