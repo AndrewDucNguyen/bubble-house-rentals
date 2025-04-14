@@ -61,12 +61,16 @@ const Contact = () => {
 
     const onSubmit = async (data) => {
         try {
-            await sendContactEmail(data);
-            toast.success('Form submitted successfully! We will contact you soon.');
-            reset();
-            setCurrentStep(0);
+            const response = await sendContactEmail(data);
+            if (response.success) {
+                toast.success('Form submitted successfully! We will contact you soon.');
+                reset();
+                setCurrentStep(0);
+            } else {
+                throw new Error('Failed to send email');
+            }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Form submission error:', error);
             toast.error(error.message || 'An error occurred while submitting the form');
             setError("root", {
                 message: error.message || "There was an error submitting the form"

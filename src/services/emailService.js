@@ -4,17 +4,25 @@ export const sendContactEmail = async (formData) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify(formData),
         });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || 'Failed to send email');
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            throw new Error('Server returned non-JSON response');
         }
 
-        return { success: true };
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || 'Failed to send email');
+        }
+
+        return data;
     } catch (error) {
-        throw new Error(error.message);
+        console.error('Email service error:', error);
+        throw new Error(error.message || 'Failed to send email');
     }
 }; 
