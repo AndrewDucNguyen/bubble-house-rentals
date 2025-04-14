@@ -1,19 +1,12 @@
-import express from 'express';
-import cors from 'cors';
 import { Resend } from 'resend';
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-const app = express();
-const port = process.env.PORT || 3001;
-
-app.use(cors());
-app.use(express.json());
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-app.post('/api/send-email', async (req, res) => {
+export default async function handler(req, res) {
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Method not allowed' });
+    }
+
     try {
         const formData = req.body;
 
@@ -57,8 +50,4 @@ app.post('/api/send-email', async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-});
-
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-}); 
+} 
