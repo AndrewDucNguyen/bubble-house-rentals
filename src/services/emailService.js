@@ -1,6 +1,10 @@
 export const sendContactEmail = async (formData) => {
     try {
-        const response = await fetch(`${window.location.origin}/api/send-email`, {
+        const apiUrl = import.meta.env.DEV
+            ? 'http://localhost:3001/api/send-email'
+            : `${window.location.origin}/api/send-email`;
+
+        const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -10,31 +14,14 @@ export const sendContactEmail = async (formData) => {
             credentials: 'same-origin'
         });
 
-        let data;
-        try {
-            data = await response.json();
-        } catch (parseError) {
-            console.error('Failed to parse JSON response:', parseError);
-            throw new Error('Invalid server response');
-        }
-
         if (!response.ok) {
-            const errorMessage = data.error
-                ? (typeof data.error === 'object'
-                    ? JSON.stringify(data.error)
-                    : data.error)
-                : 'Failed to send email';
-            console.error('Server error:', errorMessage);
-            throw new Error(errorMessage);
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
         }
 
-        return data;
+        return await response.json();
     } catch (error) {
-        console.error('Email service error:', {
-            name: error.name,
-            message: error.message,
-            stack: error.stack
-        });
+        console.error('Email service error:', error.message);
         throw error;
     }
 }; 

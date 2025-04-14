@@ -1,8 +1,11 @@
 import { Resend } from 'resend';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export default async function handler(req, res) {
+export async function handler(req, res) {
     // Set CORS headers
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -37,7 +40,7 @@ export default async function handler(req, res) {
             return;
         }
 
-        const { data, error: resendError } = await resend.emails.send({
+        const { error: resendError } = await resend.emails.send({
             from: `The Bubble House Rentals <${process.env.SENDER_EMAIL}>`,
             to: `${formData.email}`,
             subject: `${formData.firstName} ${formData.lastName} - Rental Inquiry`,
@@ -70,7 +73,6 @@ export default async function handler(req, res) {
         });
 
         if (resendError) {
-            console.error('Resend error:', resendError);
             res.status(500).json({
                 error: typeof resendError === 'object'
                     ? resendError.message || 'Failed to send email'
@@ -81,12 +83,6 @@ export default async function handler(req, res) {
 
         res.status(200).json({ success: true });
     } catch (error) {
-        console.error('Server error:', {
-            name: error.name,
-            message: error.message,
-            stack: error.stack
-        });
-
         res.status(500).json({
             error: error.message || 'Internal server error'
         });
