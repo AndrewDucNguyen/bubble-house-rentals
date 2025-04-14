@@ -17,7 +17,7 @@ export default {
         'semi': 600,
         'bold': 700,
       }
-    },
+    }
   },
   plugins: [],
 }

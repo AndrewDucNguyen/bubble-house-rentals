@@ -1,14 +1,13 @@
-import { useState } from 'react'
+import heroImage from '../assets/images/hero.png'
 
 const Hero = () => {
-
     return (
-        <div className="relative max-w-7xl mx-auto" >
+        <div className="relative max-w-7xl mx-auto">
             <div
                 aria-hidden="true"
-                className="absolute w-full h-full rounded-2xl -z-10 overflow-hidden blur-xs bg-[#0B0B09]/30 bg-[url(./public/assets/images/hero.png)] bg-blend-overlay bg-cover bg-center"
-            >
-            </div>
+                className="absolute inset-0 w-full h-full rounded-2xl -z-10 overflow-hidden blur-xs bg-[#0B0B09]/30 bg-blend-overlay bg-cover bg-center bg-no-repeat"
+                style={{ backgroundImage: `url(${heroImage})` }}
+            />
             <div className="mx-auto max-w-5xl py-32 sm:py-48 lg:py-56 relative z-10">
                 <div className="text-center">
                     <h1 className="text-5xl font-bold tracking-wide text-white sm:text-7xl">
@@ -29,8 +28,8 @@ const Hero = () => {
                         </a>
                     </div>
                 </div>
-            </div >
-        </div >
+            </div>
+        </div>
     )
 }
 

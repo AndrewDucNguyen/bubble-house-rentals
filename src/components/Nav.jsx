@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { AlignJustify, X } from 'lucide-react'
 
+import logo from '../assets/logo.svg'
+
 const navigation = [
     { name: 'Features', href: '#features' },
     { name: 'Services', href: '#services' },
@@ -21,7 +23,7 @@ const Nav = () => {
                     <span className="sr-only">Your Company</span>
                     <img
                         alt=""
-                        src="public/assets/logo.svg"
+                        src={logo}
                         className="w-52 h-auto"
                     />
                 </a>
@@ -51,7 +53,7 @@ const Nav = () => {
                             <span className="sr-only">Your Company</span>
                             <img
                                 alt=""
-                                src="public/assets/logo.svg"
+                                src={logo}
                                 className="w-16 h-auto"
                             />
                         </a>

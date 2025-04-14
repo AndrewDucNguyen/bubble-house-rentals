@@ -1,33 +1,36 @@
-
+import whiteCastle from '../assets/images/white_castle.jpg';
+import whiteBounceHouseSlide from '../assets/images/white_bounce_house_slide.jpg';
+import squareBounceHouse from '../assets/images/square_bounce_house.jpg';
+import classicBounceHouse from '../assets/images/classic_bounce_house.png'
 
 const bounceHouses = [
     {
         name: 'White Castle',
         description:
             'The Organize base set allows you to configure and evolve your setup as your items and habits change. The included trays and optional add-ons are easily rearranged to achieve that perfect setup.',
-        imagepublic: 'public/assets/images/white_castle.jpg',
-        imageAlt: 'Maple organizer base with slots, supporting white polycarbonate trays of various sizes.',
+        imageSrc: whiteCastle,
+        imageAlt: 'Elegant white castle bounce house with turrets and decorative details, perfect for royal-themed parties',
     },
     {
         name: 'White Bounce House w/ Slide',
         description:
             'The Organize base set allows you to configure and evolve your setup as your items and habits change. The included trays and optional add-ons are easily rearranged to achieve that perfect setup.',
-        imagepublic: 'public/assets/images/white_bounce_house_slide.jpg',
-        imageAlt: 'Maple organizer base with slots, supporting white polycarbonate trays of various sizes.',
+        imageSrc: whiteBounceHouseSlide,
+        imageAlt: 'Modern white bounce house with attached slide, combining bouncing fun with sliding excitement',
     },
     {
         name: 'Square Bounce House',
         description:
             'The Organize base set allows you to configure and evolve your setup as your items and habits change. The included trays and optional add-ons are easily rearranged to achieve that perfect setup.',
-        imagepublic: 'public/assets/images/square_bounce_house.jpg',
-        imageAlt: 'Maple organizer base with slots, supporting white polycarbonate trays of various sizes.',
+        imageSrc: squareBounceHouse,
+        imageAlt: 'Classic square bounce house with spacious interior, perfect for group play and parties',
     },
     {
         name: 'Classic Bounce House',
         description:
             'The Organize base set allows you to configure and evolve your setup as your items and habits change. The included trays and optional add-ons are easily rearranged to achieve that perfect setup.',
-        imagepublic: 'public/assets/images/class_bounce_house.png',
-        imageAlt: 'Maple organizer base with slots, supporting white polycarbonate trays of various sizes.',
+        imageSrc: classicBounceHouse,
+        imageAlt: 'Traditional bounce house with colorful design, ideal for birthday parties and celebrations',
     }
 ]
 
@@ -58,7 +61,7 @@ export default function Services() {
                                         <div className="lg:col-span-7">
                                             <img
                                                 alt={bounceHouse.imageAlt}
-                                                src={bounceHouse.imagepublic}
+                                                src={bounceHouse.imageSrc}
                                                 className="aspect-2/1 w-full rounded-lg bg-gray-100 object-cover sm:aspect-3/2"
                                             />
                                         </div>
