@@ -19,9 +19,21 @@ export default async function handler(req, res) {
     }
 
     try {
+        if (!process.env.RESEND_API_KEY) {
+            throw new Error('RESEND_API_KEY is not configured');
+        }
+
+        if (!process.env.SENDER_EMAIL) {
+            throw new Error('SENDER_EMAIL is not configured');
+        }
+
         const formData = req.body;
 
-        const { error } = await resend.emails.send({
+        if (!formData) {
+            throw new Error('No form data provided');
+        }
+
+        const { error: resendError } = await resend.emails.send({
             from: `The Bubble House Rentals <${process.env.SENDER_EMAIL}>`,
             to: `${formData.email}`,
             subject: `${formData.firstName} ${formData.lastName} - Rental Inquiry`,
@@ -53,14 +65,25 @@ export default async function handler(req, res) {
             `
         });
 
-        if (error) {
-            console.error('Resend error:', error);
-            return res.status(500).json({ error: error.message });
+        if (resendError) {
+            console.error('Resend error:', resendError);
+            return res.status(500).json({
+                error: typeof resendError === 'object'
+                    ? resendError.message || 'Failed to send email'
+                    : resendError
+            });
         }
 
         return res.status(200).json({ success: true });
     } catch (error) {
-        console.error('Server error:', error);
-        return res.status(500).json({ error: error.message });
+        console.error('Server error:', {
+            name: error.name,
+            message: error.message,
+            stack: error.stack
+        });
+
+        return res.status(500).json({
+            error: error.message || 'Internal server error'
+        });
     }
 } 
