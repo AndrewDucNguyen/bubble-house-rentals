@@ -50,8 +50,15 @@
             "continue": true
         },
         {
+            "src": "/(.*\\.(js|css|jpg|jpeg|png|gif|svg|ico|webp|woff|woff2|ttf|eot))$",
+            "dest": "/$1"
+        },
+        {
             "src": "/(.*)",
-            "dest": "/index.html"
+            "dest": "/index.html",
+            "headers": {
+                "content-type": "text/html"
+            }
         }
     ]
 }
