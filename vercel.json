@@ -20,10 +20,32 @@
             "dest": "/api/$1"
         },
         {
-            "src": "/assets/(.*)",
+            "src": "/assets/(.*)\\.js$",
             "headers": {
                 "cache-control": "public, max-age=31536000, immutable",
-                "content-type": "auto"
+                "content-type": "application/javascript"
+            },
+            "continue": true
+        },
+        {
+            "src": "/assets/(.*)\\.css$",
+            "headers": {
+                "cache-control": "public, max-age=31536000, immutable",
+                "content-type": "text/css"
+            },
+            "continue": true
+        },
+        {
+            "src": "/assets/(.*)\\.(jpg|jpeg|png|gif|svg|ico|webp)$",
+            "headers": {
+                "cache-control": "public, max-age=31536000, immutable"
+            },
+            "continue": true
+        },
+        {
+            "src": "/assets/(.*)\\.(woff|woff2|ttf|eot)$",
+            "headers": {
+                "cache-control": "public, max-age=31536000, immutable"
             },
             "continue": true
         },
