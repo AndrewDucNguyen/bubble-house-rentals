@@ -1,12 +1,13 @@
 export const sendContactEmail = async (formData) => {
     try {
-        const response = await fetch('/api/send-email', {
+        const response = await fetch(`${window.location.origin}/api/send-email`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
             body: JSON.stringify(formData),
+            credentials: 'same-origin'
         });
 
         let data;
