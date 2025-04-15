@@ -1,12 +1,6 @@
 export const sendContactEmail = async (formData) => {
     try {
-        // In production, the API route should be /api/send-email
-        // In development, we need to use the full URL with port
-        const apiUrl = import.meta.env.DEV
-            ? 'http://localhost:3001/api/send-email'
-            : '/api/send-email';
-
-        const response = await fetch(apiUrl, {
+        const response = await fetch('http://localhost:3001/api/send-email', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

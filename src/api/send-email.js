@@ -1,46 +1,23 @@
+import express from 'express';
+import cors from 'cors';
 import { Resend } from 'resend';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
+const app = express();
+const port = process.env.PORT || 3001;
+
+app.use(cors());
+app.use(express.json());
+
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function handler(req, res) {
-    // Set CORS headers
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-    res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
-
-    if (req.method === 'OPTIONS') {
-        res.status(200).end();
-        return;
-    }
-
-    if (req.method !== 'POST') {
-        res.status(405).json({ error: 'Method not allowed' });
-        return;
-    }
-
+app.post('/api/send-email', async (req, res) => {
     try {
-        if (!process.env.RESEND_API_KEY) {
-            res.status(500).json({ error: 'Email service is not properly configured' });
-            return;
-        }
-
-        if (!process.env.SENDER_EMAIL) {
-            res.status(500).json({ error: 'Sender email is not configured' });
-            return;
-        }
-
         const formData = req.body;
 
-        if (!formData) {
-            res.status(400).json({ error: 'No form data provided' });
-            return;
-        }
-
-        const { error: resendError } = await resend.emails.send({
+        const { error } = await resend.emails.send({
             from: `The Bubble House Rentals <${process.env.SENDER_EMAIL}>`,
             to: `${formData.email}`,
             subject: `${formData.firstName} ${formData.lastName} - Rental Inquiry`,
@@ -72,17 +49,16 @@ export async function handler(req, res) {
             `
         });
 
-        if (resendError) {
-            const errorMessage = typeof resendError === 'object' && resendError.message
-                ? resendError.message
-                : 'Failed to send email';
-            res.status(500).json({ error: errorMessage });
-            return;
+        if (error) {
+            return res.status(500).json({ error: error.message });
         }
 
-        res.status(200).json({ success: true });
+        res.json({ success: true });
     } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : 'Internal server error';
-        res.status(500).json({ error: errorMessage });
+        res.status(500).json({ error: error.message });
     }
-} 
+});
+
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+}); 

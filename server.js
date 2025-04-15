@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { handler } from './src/api/send-email.js';
+import { Resend } from 'resend';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -8,43 +8,57 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3001;
 
-// CORS configuration
-const corsOptions = {
-    origin: process.env.NODE_ENV === 'development'
-        ? ['http://localhost:3000', 'http://127.0.0.1:3000']
-        : process.env.ALLOWED_ORIGINS?.split(',') || [],
-    methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Accept'],
-    credentials: true
-};
-
-// Middleware
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 
-// Health check endpoint
-app.get('/health', (req, res) => {
-    res.status(200).json({ status: 'ok' });
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-// API routes
 app.post('/api/send-email', async (req, res) => {
     try {
-        await handler(req, res);
-    } catch (error) {
-        console.error('Error in send-email route:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
+        const formData = req.body;
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error('Unhandled error:', err);
-    res.status(500).json({ error: 'Internal server error' });
+        const { error } = await resend.emails.send({
+            from: `The Bubble House Rentals <${process.env.SENDER_EMAIL}>`,
+            to: `${formData.email}`,
+            subject: `${formData.firstName} ${formData.lastName} - Rental Inquiry`,
+            html: `
+                <h2>New Rental Form Submission</h2>
+                <h3>Personal Information</h3>
+                <p><strong>Name:</strong> ${formData.firstName} ${formData.lastName}</p>
+                <p><strong>Email:</strong> ${formData.email}</p>
+                <p><strong>Phone:</strong> ${formData.number}</p>
+                
+                <h3>Event Information</h3>
+                <p><strong>Event Date:</strong> ${new Date(formData.eventDate).toLocaleDateString()}</p>
+                <p><strong>Setup Time:</strong> ${formData.setupTime}</p>
+                <p><strong>Pickup Time:</strong> ${formData.pickupTime}</p>
+                <p><strong>Items Interested:</strong> ${formData.itemsInterested.join(', ')}</p>
+                <p><strong>Event Type:</strong> ${formData.eventType}</p>
+                <p><strong>Surface Type:</strong> ${formData.surfaceType}</p>
+                <p><strong>Power Available:</strong> ${formData.powerAvailable}</p>
+                <p><strong>Pets:</strong> ${formData.petStatus}</p>
+                <p><strong>Event Location:</strong> ${formData.eventLocation}</p>
+                <p><strong>Preferred Contact:</strong> ${formData.preferredContact}</p>
+                
+                <h3>Location</h3>
+                <p>${formData.street}</p>
+                <p>${formData.city}, ${formData.state} ${formData.postal}</p>
+                
+                <h3>Additional Information</h3>
+                <p><strong>Additional Notes:</strong> ${formData.additionalNotes || 'N/A'}</p>
+            `
+        });
+
+        if (error) {
+            return res.status(500).json({ error: error.message });
+        }
+
+        res.json({ success: true });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
-    console.log(`API endpoint: http://localhost:${port}/api/send-email`);
-    console.log(`Health check: http://localhost:${port}/health`);
 }); 
