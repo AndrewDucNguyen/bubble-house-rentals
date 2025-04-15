@@ -1,8 +1,10 @@
 export const sendContactEmail = async (formData) => {
     try {
+        // In production, the API route should be /api/send-email
+        // In development, we need to use the full URL with port
         const apiUrl = import.meta.env.DEV
             ? 'http://localhost:3001/api/send-email'
-            : `${window.location.origin}/api/send-email`;
+            : '/api/send-email';
 
         const response = await fetch(apiUrl, {
             method: 'POST',
@@ -14,14 +16,16 @@ export const sendContactEmail = async (formData) => {
             credentials: 'same-origin'
         });
 
+        const data = await response.json();
+
         if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
-            throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+            throw new Error(data.error || 'Failed to send email');
         }
 
-        return await response.json();
+        return data;
     } catch (error) {
-        console.error('Email service error:', error.message);
-        throw error;
+        // Ensure we always throw a string error message
+        const errorMessage = error.message || 'An unexpected error occurred';
+        throw new Error(errorMessage);
     }
 }; 

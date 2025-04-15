@@ -67,20 +67,10 @@ const Contact = () => {
                 reset();
                 setCurrentStep(0);
             } else {
-                console.error('Unsuccessful response:', response);
                 throw new Error('Failed to send email. Please try again.');
             }
         } catch (error) {
-            console.error('Form submission error:', {
-                name: error.name,
-                message: error.message,
-                stack: error.stack
-            });
-
-            const errorMessage = error.message && error.message !== '[object Object]'
-                ? error.message
-                : 'An error occurred while submitting the form. Please try again.';
-
+            const errorMessage = error.message || 'An error occurred while submitting the form. Please try again.';
             toast.error(errorMessage);
             setError("root", { message: errorMessage });
         }

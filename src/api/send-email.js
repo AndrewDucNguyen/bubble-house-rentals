@@ -24,12 +24,12 @@ export async function handler(req, res) {
 
     try {
         if (!process.env.RESEND_API_KEY) {
-            res.status(500).json({ error: 'RESEND_API_KEY is not configured' });
+            res.status(500).json({ error: 'Email service is not properly configured' });
             return;
         }
 
         if (!process.env.SENDER_EMAIL) {
-            res.status(500).json({ error: 'SENDER_EMAIL is not configured' });
+            res.status(500).json({ error: 'Sender email is not configured' });
             return;
         }
 
@@ -73,18 +73,16 @@ export async function handler(req, res) {
         });
 
         if (resendError) {
-            res.status(500).json({
-                error: typeof resendError === 'object'
-                    ? resendError.message || 'Failed to send email'
-                    : resendError
-            });
+            const errorMessage = typeof resendError === 'object' && resendError.message
+                ? resendError.message
+                : 'Failed to send email';
+            res.status(500).json({ error: errorMessage });
             return;
         }
 
         res.status(200).json({ success: true });
     } catch (error) {
-        res.status(500).json({
-            error: error.message || 'Internal server error'
-        });
+        const errorMessage = error instanceof Error ? error.message : 'Internal server error';
+        res.status(500).json({ error: errorMessage });
     }
 } 
