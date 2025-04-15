@@ -1,25 +1,27 @@
 export const sendContactEmail = async (formData) => {
     try {
-        const response = await fetch('http://localhost:3001/api/send-email', {
+        const apiUrl = process.env.NODE_ENV === 'production'
+            ? '/api/send-email'  // Vercel will handle the routing
+            : 'http://localhost:3001/api/send-email';
+
+        const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
             body: JSON.stringify(formData),
-            credentials: 'same-origin'
+            credentials: 'include'
         });
 
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.error || 'Failed to send email');
+            throw new Error(data.error || `HTTP error! status: ${response.status}`);
         }
 
         return data;
     } catch (error) {
-        // Ensure we always throw a string error message
-        const errorMessage = error.message || 'An unexpected error occurred';
-        throw new Error(errorMessage);
+        throw new Error(error.message || 'An unexpected error occurred while sending the email');
     }
 }; 

@@ -8,13 +8,35 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3001;
 
-app.use(cors());
-app.use(express.json());
+// Configure CORS with specific options
+app.use(cors({
+    origin: process.env.NODE_ENV === 'production'
+        ? process.env.VERCEL_URL || 'https://your-production-domain.com'
+        : 'http://localhost:5173',
+    credentials: true
+}));
+
+// Add body parser middleware with size limit
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+
+// Add error handling middleware
+app.use((err, req, res, next) => {
+    console.error('Error in request:', err);
+    res.status(500).json({ error: err.message });
+});
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 app.post('/api/send-email', async (req, res) => {
     try {
+        console.log('Received request body:', req.body);
+
+        if (!req.body || Object.keys(req.body).length === 0) {
+            console.log('Empty request body received');
+            return res.status(400).json({ error: 'Request body is empty' });
+        }
+
         const formData = req.body;
 
         const { error } = await resend.emails.send({
@@ -59,6 +81,11 @@ app.post('/api/send-email', async (req, res) => {
     }
 });
 
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-}); 
+// Only start the server if not running on Vercel
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(port, () => {
+        console.log(`Server running on port ${port}`);
+    });
+}
+
+export default app; 
