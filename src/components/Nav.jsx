@@ -22,7 +22,7 @@ const Nav = () => {
                 <a href="/" className="-m-1.5 p-1.5">
                     <span className="sr-only">Your Company</span>
                     <img
-                        alt=""
+                        alt="Bubble House Rentals Logo"
                         src={logo}
                         className="w-52 h-auto"
                     />
@@ -52,7 +52,7 @@ const Nav = () => {
                         <a href="#" className="-m-1.5 p-1.5">
                             <span className="sr-only">Your Company</span>
                             <img
-                                alt=""
+                                alt="Bubble House Rentals Logo"
                                 src={logo}
                                 className="w-16 h-auto"
                             />
