@@ -25,29 +25,20 @@ export const RentalInquiryEmail = ({
   };
 
   const container = {
-    margin: '0 auto',
-    padding: '20px 0 48px',
-    maxWidth: '580px',
+    display: 'flex',
+    margin: '10px auto',
+    justifyContent: 'space between',
   };
 
   const section = {
-    padding: '24px',
-    backgroundColor: '#f6f9fc',
     borderRadius: '8px',
-    marginBottom: '24px',
-  };
-
-  const h2 = {
-    color: '#1a1a1a',
-    fontSize: '24px',
-    fontWeight: 'bold',
-    margin: '40px 0',
-    padding: '0',
+    marginBottom: '10px',
+    width: '50%'
   };
 
   const h3 = {
     color: '#1a1a1a',
-    fontSize: '18px',
+    fontSize: '20px',
     fontWeight: 'bold',
     margin: '0 0 16px',
     padding: '0',
@@ -55,7 +46,7 @@ export const RentalInquiryEmail = ({
 
   const text = {
     color: '#1a1a1a',
-    fontSize: '16px',
+    fontSize: '18px',
     lineHeight: '24px',
     margin: '8px 0',
   };
@@ -81,16 +72,16 @@ export const RentalInquiryEmail = ({
             cellpadding="0"
             cellspacing="0"
             role="presentation"
-            style="max-width:37.5em;margin:0 auto;padding:20px 0 48px">
+            style="max-width:600px;margin:0 auto;padding:20px 0 48px">
             <tbody>
               <tr style="width:100%">
                 <td>
                   <img
                     alt="The Bubble House Rentals Logo"
-                    height="50"
+                    height="auto"
                     src="https://www.thebubblehouserentals.com/assets/images/logo.png"
                     style="display:block;outline:none;border:none;text-decoration:none;margin:0 auto"
-                    width="170"
+                    width="250"
                     loading="eager"
                     decoding="async"
                     importance="high"
@@ -102,13 +93,16 @@ export const RentalInquiryEmail = ({
                   </p>
 
                   <div style="${Object.entries(container).map(([key, value]) => `${key}: ${value}`).join(';')}">
-                    <h2 style="${Object.entries(h2).map(([key, value]) => `${key}: ${value}`).join(';')}">New Rental Form Submission</h2>
                     
                     <div style="${Object.entries(section).map(([key, value]) => `${key}: ${value}`).join(';')}">
                       <h3 style="${Object.entries(h3).map(([key, value]) => `${key}: ${value}`).join(';')}">Personal Information</h3>
                       <p style="${Object.entries(text).map(([key, value]) => `${key}: ${value}`).join(';')}"><strong>Name:</strong> ${firstName} ${lastName}</p>
                       <p style="${Object.entries(text).map(([key, value]) => `${key}: ${value}`).join(';')}"><strong>Email:</strong> ${email}</p>
                       <p style="${Object.entries(text).map(([key, value]) => `${key}: ${value}`).join(';')}"><strong>Phone:</strong> ${number}</p>
+
+                      <h3 style="${Object.entries(h3).map(([key, value]) => `${key}: ${value}`).join(';')}">Location</h3>
+                      <p style="${Object.entries(text).map(([key, value]) => `${key}: ${value}`).join(';')}">${street}</p>
+                      <p style="${Object.entries(text).map(([key, value]) => `${key}: ${value}`).join(';')}">${city}, ${state} ${postal}</p>
                     </div>
 
                     <div style="${Object.entries(section).map(([key, value]) => `${key}: ${value}`).join(';')}">
@@ -123,30 +117,18 @@ export const RentalInquiryEmail = ({
                       <p style="${Object.entries(text).map(([key, value]) => `${key}: ${value}`).join(';')}"><strong>Pets:</strong> ${petStatus}</p>
                       <p style="${Object.entries(text).map(([key, value]) => `${key}: ${value}`).join(';')}"><strong>Event Location:</strong> ${eventLocation}</p>
                       <p style="${Object.entries(text).map(([key, value]) => `${key}: ${value}`).join(';')}"><strong>Preferred Contact:</strong> ${preferredContact}</p>
-                    </div>
 
-                    <div style="${Object.entries(section).map(([key, value]) => `${key}: ${value}`).join(';')}">
-                      <h3 style="${Object.entries(h3).map(([key, value]) => `${key}: ${value}`).join(';')}">Location</h3>
-                      <p style="${Object.entries(text).map(([key, value]) => `${key}: ${value}`).join(';')}">${street}</p>
-                      <p style="${Object.entries(text).map(([key, value]) => `${key}: ${value}`).join(';')}">${city}, ${state} ${postal}</p>
-                    </div>
-
-                    <div style="${Object.entries(section).map(([key, value]) => `${key}: ${value}`).join(';')}">
                       <h3 style="${Object.entries(h3).map(([key, value]) => `${key}: ${value}`).join(';')}">Additional Information</h3>
                       <p style="${Object.entries(text).map(([key, value]) => `${key}: ${value}`).join(';')}"><strong>Additional Notes:</strong> ${additionalNotes || 'N/A'}</p>
                     </div>
+
                   </div>
                   
                   <p
                     style="font-size:16px;line-height:26px;margin-top:16px;margin-bottom:16px">
-                    Best,<br />The Bubble House Rentals
+                    The Bubble House Rentals
                   </p>
-                  <hr
-                    style="width:100%;border:none;border-top:1px solid #eaeaea;border-color:#cccccc;margin:20px 0" />
-                  <p
-                    style="font-size:12px;line-height:24px;color:#8898aa;margin-top:16px;margin-bottom:16px">
-                    Wichita, Ks
-                  </p>
+
                 </td>
               </tr>
             </tbody>
