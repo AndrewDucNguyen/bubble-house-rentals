@@ -27,7 +27,7 @@ const Nav = () => {
                         className="w-52 h-auto"
                     />
                 </a>
-                <div className="flex lg:hidden">
+                <div className="flex md:hidden">
                     <button
                         type="button"
                         onClick={() => setMobileMenuOpen(true)}
@@ -37,7 +37,7 @@ const Nav = () => {
                         <AlignJustify />
                     </button>
                 </div>
-                <div className="hidden lg:flex lg:gap-x-12">
+                <div className="hidden md:flex md:gap-x-12">
                     {navigation.map((item) => (
                         <a key={item.name} href={item.href} className="text-sm/6 font-semibold text-gray-900">
                             {item.name}
@@ -45,16 +45,16 @@ const Nav = () => {
                     ))}
                 </div>
             </nav>
-            <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
+            <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="md:hidden">
                 <div className="fixed inset-0 z-10" />
-                <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+                <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-2 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                     <div className="flex items-center justify-between">
                         <a href="#" className="-m-1.5 p-1.5">
                             <span className="sr-only">Your Company</span>
                             <img
                                 alt="Bubble House Rentals Logo"
                                 src={logo}
-                                className="w-16 h-auto"
+                                className="w-48 h-auto"
                             />
                         </a>
                         <button

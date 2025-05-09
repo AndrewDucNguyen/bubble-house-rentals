@@ -26,7 +26,7 @@ export const RentalInquiryEmail = ({
 
   const container = {
     display: 'flex',
-    margin: '10px auto',
+    margin: '25px auto',
     justifyContent: 'space between',
   };
 
@@ -86,7 +86,7 @@ export const RentalInquiryEmail = ({
                     decoding="async"
                     importance="high"
                     role="presentation" />
-                  <p style="${Object.entries(text).map(([key, value]) => `${key}: ${value}`).join(';')}">Hi, ${firstName} ${lastName}</p>
+                  <p style="${Object.entries(text).map(([key, value]) => `${key}: ${value}`).join(';')}">Hi ${firstName} ${lastName}</p>
                   <p
                     style="${Object.entries(text).map(([key, value]) => `${key}: ${value}`).join(';')}">
                     Thank you for reaching out! We've received your rental reuest and will contact you shortly to confirm availability and finalize the details. Here is what we have on file from your submission:
@@ -129,6 +129,11 @@ export const RentalInquiryEmail = ({
                     The Bubble House Rentals
                   </p>
 
+                   <p
+                    style="font-size:12px;line-height:24px;color:#8898aa;margin-top:16px;margin-bottom:16px">
+                    ** Please note: Do not reply to this email. This email is sent from an unattended mailbox. Replies will not be read.
+                  </p>
+                  
                 </td>
               </tr>
             </tbody>
