@@ -37,10 +37,10 @@ const bounceHouses = [
 export default function Services() {
     return (
         <div id="services" className="bg-white">
-            <section aria-labelledby="features-heading" className="mx-auto max-w-7xl py-32 sm:px-2 lg:px-8">
+            <section className="mx-auto max-w-7xl py-32 sm:px-2 lg:px-8">
                 <div className="mx-auto max-w-2xl px-4 lg:max-w-none lg:px-0">
                     <div className="max-w-3xl mx-auto text-center">
-                        <h2 id="features-heading" className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                             Bounce With Blessings
                         </h2>
                         <p className="mt-4 text-gray-500">

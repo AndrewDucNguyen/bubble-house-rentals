@@ -35,7 +35,7 @@ function classNames(...classes) {
 export default function Process() {
     return (
 
-        <div id="features" className="bg-white py-24 sm:py-32">
+        <div id="process" className="bg-white py-24 sm:py-32">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-5">
                     <nav aria-label="Progress" className='col-span-3 lg:max-w-lg'>
