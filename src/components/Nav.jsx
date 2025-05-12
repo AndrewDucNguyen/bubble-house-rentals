@@ -50,12 +50,7 @@ const Nav = () => {
                 <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-2 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                     <div className="flex items-center justify-between">
                         <a href="#" className="-m-1.5 p-1.5">
-                            <span className="sr-only">Your Company</span>
-                            <img
-                                alt="Bubble House Rentals Logo"
-                                src={logo}
-                                className="w-48 h-auto"
-                            />
+                            <span className="sr-only">The Bubble House Rentals</span>
                         </a>
                         <button
                             type="button"

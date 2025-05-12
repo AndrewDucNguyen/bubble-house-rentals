@@ -39,6 +39,7 @@ export const RentalInquiryEmail = ({
   const h3 = {
     color: '#1a1a1a',
     fontSize: '20px',
+    textDecoration: 'underline',
     fontWeight: 'bold',
     margin: '0 0 16px',
     padding: '0',
@@ -77,7 +78,7 @@ export const RentalInquiryEmail = ({
               <tr style="width:100%">
                 <td>
                   <img
-                    alt="The Bubble House Rentals Logo"
+                    alt="Logo"
                     height="auto"
                     src="https://www.thebubblehouserentals.com/assets/images/logo.png"
                     style="display:block;outline:none;border:none;text-decoration:none;margin:0 auto"
